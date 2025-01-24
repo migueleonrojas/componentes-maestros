@@ -1,0 +1,17 @@
+<mat-drawer-container autosize>
+   <mat-drawer 
+      #drawer 
+      [mode]="(isMatchesBreakPoint$ | async) ? 'side':'over'"
+      [ngClass]="(isMatchesBreakPoint$ | async) ? '': 'is-mobile'"
+   >
+     <menu-navigation></menu-navigation>
+   </mat-drawer>
+ 
+   <section class="home-page-content">
+     <button type="button" mat-button (click)="drawer.toggle()">
+         <mat-icon>menu</mat-icon>
+     </button>
+     <router-outlet></router-outlet>
+   </section>
+ 
+</mat-drawer-container>

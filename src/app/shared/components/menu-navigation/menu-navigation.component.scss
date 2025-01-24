@@ -1,0 +1,21 @@
+mat-list {
+   min-width: 20rem;
+   padding: 0;
+}
+
+mat-list > a {
+   text-decoration: none;
+}
+
+mat-list-item.list-option:hover {
+   background-color: #53753c;
+   color: #fff;
+}
+
+mat-list-item.list-option.is-active {
+   background-color: #53753c;
+   color: #fff;
+}
+
+
+
