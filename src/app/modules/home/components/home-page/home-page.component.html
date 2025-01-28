@@ -3,6 +3,7 @@
       #drawer 
       [mode]="(isMatchesBreakPoint$ | async) ? 'side':'over'"
       [ngClass]="(isMatchesBreakPoint$ | async) ? '': 'is-mobile'"
+      opened
    >
      <menu-navigation></menu-navigation>
    </mat-drawer>

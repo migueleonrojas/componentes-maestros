@@ -1,0 +1,7 @@
+<section>
+   <h2>Lista de Valores</h2>
+   <aside class="list-values-graph">
+      <app-value-graph [value]="valueGraph" [currentIndex]="i" *ngFor="let valueGraph of listValuesGraph$ | async; index as i"></app-value-graph>
+   </aside>
+   
+</section>

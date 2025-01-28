@@ -1,0 +1,36 @@
+.value-graph {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-around;
+   align-items: center;
+   border: 3px solid #000;
+   margin: 1rem 0;
+   font-size: 1.5rem;
+   border-radius: 0.7rem;
+   padding: 1rem;
+}
+
+.value-graph > * {
+   flex: 0 1 30%;
+   height: 100%;
+   word-break: break-all;
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   font-weight: 800;
+}
+
+aside {
+   display: flex;
+   flex-direction: column;
+}
+
+aside > h2 {
+   margin: 0;
+   font-size: 0.9rem;
+}
+
+.button-options {
+   display: flex;
+   gap: 0 0.2rem;
+}

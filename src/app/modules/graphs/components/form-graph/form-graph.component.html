@@ -1,0 +1,27 @@
+<section class="form-graph">
+   <h2>
+      <span *ngIf="!(isModeEditing$ | async)">Agregando</span>
+      <span *ngIf="isModeEditing$ | async">Editando</span>
+      Valores para las gráficas
+   </h2>
+   <form class="form-graph" [formGroup]="formValueGraph" (ngSubmit)="sendValueGraph()">
+      <mat-form-field>
+         <mat-label>Etiqueta</mat-label>
+         <input matInput placeholder="Coloque la etiqueta del valor" formControlName="label" type="text">
+      </mat-form-field>
+      <mat-form-field>
+         <mat-label>Valor</mat-label>
+         <input matInput placeholder="Coloque la etiqueta del valor" formControlName="value" type="number">
+      </mat-form-field>
+      <mat-form-field>
+         <mat-label>Valor</mat-label>
+         <input matInput placeholder="Coloque la etiqueta del valor" formControlName="color" type="color">
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" [disabled]="!formValueGraph.valid">
+         <span *ngIf="!(isModeEditing$ | async)">Agregar</span>
+         <span *ngIf="isModeEditing$ | async">Editar</span> 
+         Valor
+      </button>
+   </form>
+</section>

@@ -1,0 +1,25 @@
+<section class="value-graph" [style.color]="value.color" [style.borderColor]="value.color">
+   <aside>
+      <h2>Etiqueta</h2>
+      <span>{{value.label}}</span>
+   </aside>
+
+   
+   <aside>
+      <h2>Valor</h2>
+      <span>{{value.value}}</span>
+   </aside>
+   <aside class="options">
+      <h2>Opciones</h2>
+      <div class="button-options">
+         <button mat-mini-fab [style.backgroundColor]="value.color" (click)="update(value, currentIndex)">
+            <mat-icon *ngIf="!(isEditing$ | async)">edit</mat-icon>
+            <mat-icon *ngIf="isEditing$ | async">close</mat-icon>
+         </button>
+         <button mat-mini-fab [style.backgroundColor]="value.color" (click)="delete(currentIndex)">
+            <mat-icon>delete</mat-icon>
+         </button>
+         
+      </div>
+   </aside>
+</section>
