@@ -6,4 +6,5 @@ export interface Rect {
    rx: number;
    ry: number;
    pathLength: number;
+   color: string;
 }

@@ -1,1 +1,29 @@
-<p>bar-graph works!</p>
+<svg [attr.height]="heightGraph$ | async" [attr.width]="widthGraph$ | async">
+
+   <line 
+      *ngFor="let lineGraph of linesGraph$ | async"
+      [attr.x1]="lineGraph.x1" [attr.y1]="lineGraph.y1" [attr.x2]="lineGraph.x2" [attr.y2]="lineGraph.y2"
+      [attr.stroke]="lineGraph.stroke"
+   >
+   </line>
+
+   <text *ngFor="let textGraph of textsGraph$ | async" 
+         [attr.x]="textGraph.x" [attr.y]="textGraph.y"
+         [attr.stroke]="textGraph.color" 
+         [attr.stroke-width]="textGraph.strokeWidth"
+   >
+      {{textGraph.content}}
+   </text>
+
+   <!-- <rect x="120" width="100" height="100" rx="15" /> -->
+   <!-- <rect [attr.width]="200" height="100" x="10" y="10" rx="20" ry="20" fill="blue" /> -->
+   <rect 
+      *ngFor="let rectGraph of rectsGraph$ | async" 
+      [attr.x]="rectGraph.x" [attr.y]="rectGraph.y" 
+      [attr.width]="rectGraph.width" [attr.height]="rectGraph.height" 
+      [attr.rx]="rectGraph.rx" [attr.ry]="rectGraph.ry" 
+      [attr.fill]="rectGraph.color"
+
+   />
+   
+</svg>

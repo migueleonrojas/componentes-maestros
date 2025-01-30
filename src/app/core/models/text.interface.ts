@@ -5,5 +5,6 @@ export interface Text {
    y: number;
    content: string;
    color: string;
-   textSpan: ReadonlyArray<TextSpan>
+   strokeWidth: string;
+   textSpan?: ReadonlyArray<TextSpan>
 }
