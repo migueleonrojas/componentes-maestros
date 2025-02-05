@@ -1,8 +1,8 @@
-import { BarGraphState } from "@core/models/bar.graph.state";
+import { LinearGraphState } from "@core/models/linear.graph.state";
 import { createReducer, on } from "@ngrx/store";
-import { startBuildBarGraphs, setMainAxis, setCrossAxis, clearBarGraph, setLegend } from "../actions/bar-graph.actions";
+import { clearLinearGraph, setCrossAxis, setLegend, setMainAxis, startBuildLinearGraphs } from "../actions/linear-graph.action";
 
-export const initialState: BarGraphState = {
+export const initialState: LinearGraphState = {
    lines: [],
    texts: [],
    rects: [],
@@ -10,15 +10,15 @@ export const initialState: BarGraphState = {
    height: 300
 };
 
-export const barGraphReducer = createReducer(
+export const linearGraphReducer = createReducer(
    initialState,
-   on(startBuildBarGraphs, (state, { valuesGraph, height }) => {
+   on(startBuildLinearGraphs, (state, { valuesGraph, height }) => {
       return {
          ...state,
          height
       }
    }),
-   on(clearBarGraph, ((state) => {
+   on(clearLinearGraph, (state) => {
       return {
          ...state,
          rects: [],
@@ -27,7 +27,7 @@ export const barGraphReducer = createReducer(
          width: 0,
          height: 300
       }
-   })),
+   }),
    on(setCrossAxis, (state, { lines, texts }) => {
       return {
          ...state,
@@ -35,12 +35,12 @@ export const barGraphReducer = createReducer(
          texts: [...state.texts, ...texts]
       }
    }),
-   on(setMainAxis, (state, { lines, texts, rects }) => {
+   on(setMainAxis, (state, { lines, texts }) => {
       return {
          ...state,
          lines: [...state.lines, ...lines],
          texts: [...state.texts, ...texts],
-         rects: [...state.rects, ...rects],  
+         
       }
    }),
    on(setLegend, (state, { rects, texts, width }) => {
@@ -51,5 +51,4 @@ export const barGraphReducer = createReducer(
          width
       }
    })
-
 );

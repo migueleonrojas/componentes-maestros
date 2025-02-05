@@ -3,7 +3,15 @@ import { createReducer, on } from "@ngrx/store";
 import { addValueGraph, subtractValueGraph, getValuesGraph, updateValueGraph, setFilteredValueGraph } from "../actions/values-graphs.actions";
 import { ValueGraph } from "@core/models/value.graph.interface";
 
-export const initialState: ReadonlyArray<ValueGraph> = []
+export const initialState: ReadonlyArray<ValueGraph> = [
+   {
+      color: '#f14212',
+      id:'0',
+      itsFiltered:false,
+      label:'holis',
+      value: 2000
+   }
+];
 
 export const valuesGraphsReducer = createReducer(
    initialState,

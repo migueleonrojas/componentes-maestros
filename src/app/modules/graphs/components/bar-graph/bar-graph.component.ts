@@ -1,5 +1,5 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { Line } from '@core/models/line.interface';
 import { Rect } from '@core/models/rect.interface';
 import { Text } from '@core/models/text.interface';
@@ -9,8 +9,7 @@ import { Observable } from 'rxjs';
 import { clearBarGraph, startBuildBarGraphs } from 'src/app/state/actions/bar-graph.actions';
 import { setFilteredValueGraph } from 'src/app/state/actions/values-graphs.actions';
 import { selectHeightBarGraph, selectLinesOfBarGraph, selectTextsBarGraph, selectRectsOfBarGraph, selectWidthBarGraph } from 'src/app/state/selectors/bar-graph.selectors';
-
-import { selectFilteredValuesGraph, selectValuesGraph } from 'src/app/state/selectors/values-graphs.selectors';
+import { selectFilteredValuesGraph } from 'src/app/state/selectors/values-graphs.selectors';
 
 @Component({
   selector: 'app-bar-graph',

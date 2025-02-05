@@ -8,18 +8,22 @@ import { formGraphReducer } from "./reducers/form-graph.reducers";
 import { valuesGraphsReducer } from "./reducers/values-graphs.reducers";
 import { BarGraphState } from "@core/models/bar.graph.state";
 import { barGraphReducer } from "./reducers/bar-graph.reducers";
+import { LinearGraphState } from "@core/models/linear.graph.state";
+import { linearGraphReducer } from "./reducers/linear-graph.reducers";
 
 
 export interface AppState {
    mediaMatcher: ReadonlyArray<BreakpointState>;
    valuesGraph: ReadonlyArray<ValueGraph>;
    formGraphState: FormGraphState;
-   barGraphState: BarGraphState
+   barGraphState: BarGraphState;
+   linearGraphState: LinearGraphState;
 }
 
 export const ROOT_REDUCERS: ActionReducerMap<AppState> = {
    mediaMatcher: mediaMatcherReducer,
    valuesGraph: valuesGraphsReducer,
    formGraphState: formGraphReducer,
-   barGraphState: barGraphReducer
+   barGraphState: barGraphReducer,
+   linearGraphState: linearGraphReducer
 };

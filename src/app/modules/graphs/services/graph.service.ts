@@ -22,7 +22,7 @@ export class GraphService {
    _paddingTop = 50
 
 
-   generateMainAxis(
+   generateMainAxisBarGraphs(
       valuesGraph: ReadonlyArray<ValueGraph>,
       height: number,
    ): Observable<{
@@ -133,6 +133,112 @@ export class GraphService {
    }
 
 
+   generateMainAxisLinearGraphs(
+      valuesGraph: ReadonlyArray<ValueGraph>,
+      height: number,
+   ): Observable<{
+      texts: Text[],
+      lines: Line[],
+      width: number,
+      height: number,
+      valuesGraph: ReadonlyArray<ValueGraph>,
+      
+   }>{
+
+
+      const maxValue = getMaxValueByListModel('value', valuesGraph);
+
+      const listScaleText = generateScaleByMaxValue(maxValue, 10);
+
+      const maxLengthByMaxWidthValue = getLengthByMaxValueWidth(listScaleText);
+
+      const paddingLeftLine = (maxLengthByMaxWidthValue.length * this._widthLetter) + this._widthLetter;
+      
+      const heightWithPadding = height - (this._paddingTop + this._paddingBottom);
+      
+      const unitFromValueToPx = heightWithPadding / maxValue;
+
+      let xRectProperty = (maxLengthByMaxWidthValue.length * this._widthLetter) + this._widthLetter;
+      let xTextLabelProperty = 0;
+      let xTextValueProperty = 0;
+      let labelWidth = 0;
+      let valueWidth = 0
+      
+      const listForms: {
+         lines: Line, textsLabel: Text, textValue: Text 
+      }[] = 
+      valuesGraph.map((valueGraph) => {
+
+         let heightValue = Number((unitFromValueToPx * valueGraph.value).toFixed(2));
+         labelWidth = `${valueGraph.label}`.length * this._widthLetter;
+         valueWidth = `${valueGraph.value}`.length * this._widthLetter; 
+
+         xTextLabelProperty = (this._widthRect > labelWidth) 
+            ? (this._widthRect - labelWidth) / 2 
+            : -(labelWidth - this._widthRect) / 2;
+
+         xTextValueProperty = (labelWidth < this._widthRect)
+            ? (this._widthRect - valueWidth) / 2
+            : -(valueWidth- this._widthRect) / 2
+         
+
+         xRectProperty += this._widthRect + (labelWidth);     
+
+         return {
+            lines: {
+               x1: paddingLeftLine,
+               x2: xRectProperty - (xTextLabelProperty),
+               y1: (height - this._paddingBottom),
+               y2: (height - this._paddingBottom) - heightValue,
+               pathLength: 2,
+               stroke: "black",
+            },
+            textsLabel: {
+               x: xRectProperty - this._widthRect + xTextLabelProperty,
+               color: valueGraph.color,
+               content: valueGraph.label,
+               y: (height - this._paddingBottom) + this._heightText,
+               textSpan: [
+
+               ],
+               strokeWidth: "0.25",
+               itsFiltered: valueGraph.itsFiltered,
+               textLength: labelWidth
+            },
+            textValue: {
+               x: xRectProperty - this._widthRect + xTextValueProperty,
+               color: valueGraph.color,
+               content: `${valueGraph.value}`,
+               y: height - (heightValue + this._paddingTop) - 5,
+               textSpan: [],
+               strokeWidth: "0.8",
+               itsFiltered: valueGraph.itsFiltered,
+               textLength: valueWidth
+            }
+         }
+      });
+
+      xRectProperty += labelWidth;
+
+      const mainLine: Line = {
+         x1: paddingLeftLine,
+         x2: xRectProperty,
+         pathLength: 2,
+         stroke: "black",
+         y1: this._paddingTop + heightWithPadding,
+         y2: this._paddingTop + heightWithPadding
+      };
+
+      return of({
+         texts: [...listForms.map(form => form.textsLabel), ...listForms.map(form => form.textValue)],
+         lines: [mainLine, ...listForms.map(form => form.lines)],
+         width: xRectProperty,
+         height,
+         valuesGraph
+      });
+   }
+
+
    generateCrossAxis(
       valuesGraph: ReadonlyArray<ValueGraph>,
       height: number,
@@ -147,6 +253,7 @@ export class GraphService {
       const heightWithPadding = height - (this._paddingTop + this._paddingBottom);
       
       const listScaleLine = generateScaleByMaxValue(maxValue, 10);
+
       listScaleLine.pop();
       
       const listScaleText = generateScaleByMaxValue(maxValue, 10);
@@ -225,9 +332,7 @@ export class GraphService {
 
          labelWidth = `${valueGraph.label}`.length * this._widthLetter;
          xPosition += (this._widthRect + labelWidth + paddingLeftTextLegend * 4)
-         /* xPosition += this._widthRect + (labelWidth + paddingLeftTextLegend * 4);   */
-         
-         
+      
          
          return {
             rectsLegend: {
@@ -239,7 +344,6 @@ export class GraphService {
                rx: 0,
                ry: 0,
                width: this._widthRect,
-               /* x: xPosition - this._widthRect, */
                id: valueGraph.id,
                itsFiltered: valueGraph.itsFiltered
             },
@@ -248,7 +352,6 @@ export class GraphService {
                content: valueGraph.label,
                strokeWidth: "0.25",
                x: xPosition - labelWidth + paddingLeftTextLegend,
-               /* x: xPosition + paddingLeftTextLegend * 0.25, */
                y: this._heightText + this._paddingTop * 0.15,
                textSpan: [],
                itsFiltered: valueGraph.itsFiltered,

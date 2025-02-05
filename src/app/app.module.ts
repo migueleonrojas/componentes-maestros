@@ -9,6 +9,7 @@ import { ROOT_REDUCERS } from './state/app.state';
 import { EffectsModule } from '@ngrx/effects';
 import { MediaMatcherEffects } from './state/effects/media-matcher.effects';
 import { BarGraphEffects } from './state/effects/bar-graph.effects';
+import { LinearGraphEffects } from './state/effects/linear-graph.effects';
 
 @NgModule({
    declarations: [
@@ -23,7 +24,8 @@ import { BarGraphEffects } from './state/effects/bar-graph.effects';
       StoreDevtoolsModule.instrument({name: 'TEST'}),
       EffectsModule.forRoot([
          MediaMatcherEffects,
-         BarGraphEffects
+         BarGraphEffects,
+         LinearGraphEffects
       ]),
    ],
    providers: [],
