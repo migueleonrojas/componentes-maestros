@@ -13,20 +13,34 @@ export const startBuildBarGraphs = createAction(
       height: number,
       width: number
    }>()
-)
+);
 
-export const setCrossAxisWithUnits = createAction(
-   '[Bar Graph] Set Cross Axis Lines With Units Scale',
+
+export const clearBarGraph = createAction(
+   '[Bar Graph] Clear All Element of the Graph'
+);
+
+export const setCrossAxis = createAction(
+   '[Bar Graph] Set Cross Axis',
    props<{
       lines: ReadonlyArray<Line>,
       texts: ReadonlyArray<Text>
    }>()
 );
 
-export const setMainAxisWithBarsAndLabels = createAction(
-   '[Bars Graph] Set Main Axis With Bar and Labels',
+export const setMainAxis = createAction(
+   '[Bars Graph] Set Main Axis',
    props<{
       lines: ReadonlyArray<Line>,
+      texts: ReadonlyArray<Text>,
+      rects: ReadonlyArray<Rect>,
+      width: number
+   }>()
+);
+
+export const setLegend = createAction(
+   '[Bars Graph] Generate Legend To Bar Graph',
+   props<{
       texts: ReadonlyArray<Text>,
       rects: ReadonlyArray<Rect>,
       width: number

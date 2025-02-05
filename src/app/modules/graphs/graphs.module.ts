@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, DecimalPipe } from '@angular/common';
 import { GraphRoutingModule } from './graphs-routing.module';
 import { GraphsPageComponent } from './page/graphs-page/graphs-page.component';
 import { BarGraphComponent } from './components/bar-graph/bar-graph.component';
@@ -20,7 +20,8 @@ import { ValueGraphComponent } from './components/value-graph/value-graph.compon
 
 @NgModule({
    providers: [
-      AsyncPipe
+      AsyncPipe,
+      DecimalPipe
    ], 
    declarations: [
       GraphsPageComponent,

@@ -1,3 +1,16 @@
+export const getLengthByMaxValueWidth = (listInterface: ReadonlyArray<any>): string[] => {
+
+   const maxValueWidthObjectByAtributte = listInterface.reduce((prev, current) => 
+         
+      `${current}`.split('').length > `${prev}`.split('').length 
+         ? current
+         : prev
+   
+   );
+   return `${maxValueWidthObjectByAtributte}`.split('');
+}
+
+
 export const getMaxValueByListModel = (attribute: string, listInterface: ReadonlyArray<any>): number => {
 
    const maxObjectByAtributte = listInterface.reduce((prev, current) => 
@@ -12,11 +25,10 @@ export const generateScaleByMaxValue = (maxValue: number, countScales: number): 
 
    const scales: number[] = [];
 
-   const scaleByCount = Number((maxValue / countScales).toFixed(2));
+   const scaleByCount = (maxValue / countScales);
 
    for(let i = 0; i <= countScales; i++) {
-      scales.push(maxValue)
-      maxValue -= scaleByCount
+      scales.push(Number((i * scaleByCount).toFixed(2)))
    }
 
    return scales;

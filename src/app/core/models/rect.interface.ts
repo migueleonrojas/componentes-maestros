@@ -7,4 +7,6 @@ export interface Rect {
    ry: number;
    pathLength: number;
    color: string;
+   id: string;
+   itsFiltered: boolean;
 }

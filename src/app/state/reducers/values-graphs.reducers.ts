@@ -1,50 +1,14 @@
 
 import { createReducer, on } from "@ngrx/store";
-import { addValueGraph, subtractValueGraph, getValuesGraph, updateValueGraph } from "../actions/values-graphs.actions";
+import { addValueGraph, subtractValueGraph, getValuesGraph, updateValueGraph, setFilteredValueGraph } from "../actions/values-graphs.actions";
 import { ValueGraph } from "@core/models/value.graph.interface";
 
-export const initialState: ReadonlyArray<ValueGraph> = [
-   {
-      color: "#803332",
-      label: "Perro",
-      value: 8000
-   },
-   {
-      color: "#f83332",
-      label: "Gato",
-      value: 4000
-   },
-   {
-      color: "#20f332",
-      label: "Loro",
-      value: 2000
-   },
-   {
-      color: "#20f332",
-      label: "Loro",
-      value: 2000
-   },
-   {
-      color: "#20f332",
-      label: "Loro",
-      value: 2000
-   },
-   {
-      color: "#20f332",
-      label: "Loro",
-      value: 2000
-   },
-   {
-      color: "#20f332",
-      label: "Loro",
-      value: 2000
-   },
-]
+export const initialState: ReadonlyArray<ValueGraph> = []
 
 export const valuesGraphsReducer = createReducer(
    initialState,
    on(addValueGraph, (state, { valueGraph } ) => {
-      return [...state, valueGraph]
+      return [...state, {...valueGraph, id: `${state.length}`}]
    }),
    on(subtractValueGraph, (state, { position }) => {
       return [...state].filter((value, index) => index !== position);
@@ -54,5 +18,16 @@ export const valuesGraphsReducer = createReducer(
    }),
    on(updateValueGraph, (state, {position, valueGraph}) => {
       return [...state].map((value, index) => index === position ? valueGraph: value)
-   })
+   }),
+   on(setFilteredValueGraph, (state, {id}) => {
+      return [...state].map((valueGraph) => (valueGraph.id === id)
+         ? {
+            ...valueGraph, 
+            itsFiltered: ([...state].filter((value) => value.itsFiltered).length === state.length - 1) 
+               ? false
+               : !valueGraph.itsFiltered
+         }
+         : valueGraph
+      )
+   }),
 );

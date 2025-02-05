@@ -21,3 +21,7 @@ export const updateValueGraph = createAction(
    props<{position:number, valueGraph: ValueGraph}>()
 );
 
+export const setFilteredValueGraph = createAction(
+   '[Form Values Graphs] Set Visible Value Graph',
+   props<{id:string}>()
+);

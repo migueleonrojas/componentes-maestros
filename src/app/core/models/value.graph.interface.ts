@@ -1,5 +1,7 @@
 export interface ValueGraph {
+   id: string,
    value: number,
    label: string,
-   color: string
+   color: string,
+   itsFiltered: boolean
 }

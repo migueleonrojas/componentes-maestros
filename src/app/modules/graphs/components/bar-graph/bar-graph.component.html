@@ -11,19 +11,20 @@
          [attr.x]="textGraph.x" [attr.y]="textGraph.y"
          [attr.stroke]="textGraph.color" 
          [attr.stroke-width]="textGraph.strokeWidth"
+         [attr.textLength]="textGraph.textLength"
+         [ngClass]="textGraph.itsFiltered ? 'its-text-marked': ''"  
    >
       {{textGraph.content}}
    </text>
 
-   <!-- <rect x="120" width="100" height="100" rx="15" /> -->
-   <!-- <rect [attr.width]="200" height="100" x="10" y="10" rx="20" ry="20" fill="blue" /> -->
    <rect 
       *ngFor="let rectGraph of rectsGraph$ | async" 
       [attr.x]="rectGraph.x" [attr.y]="rectGraph.y" 
       [attr.width]="rectGraph.width" [attr.height]="rectGraph.height" 
       [attr.rx]="rectGraph.rx" [attr.ry]="rectGraph.ry" 
-      [attr.fill]="rectGraph.color"
-
+      [attr.fill]="rectGraph.color" [attr.data-position]="rectGraph.id"
+      (click)="filterLegend(rectGraph.id)"
+      [ngClass]="rectGraph.itsFiltered ? 'its-filtered': ''"
    />
-   
+
 </svg>

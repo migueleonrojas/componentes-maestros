@@ -6,5 +6,7 @@ export interface Text {
    content: string;
    color: string;
    strokeWidth: string;
-   textSpan?: ReadonlyArray<TextSpan>
+   textSpan?: ReadonlyArray<TextSpan>;
+   itsFiltered: boolean;
+   textLength:number;
 }

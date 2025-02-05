@@ -22,7 +22,9 @@ export class ValueGraphComponent implements OnDestroy {
    @Input() value: ValueGraph = {
       color: "#000",
       label: '',
-      value: 0
+      value: 0,
+      id: '0',
+      itsFiltered: true,
    };
 
    @Input() currentIndex: number = 0;

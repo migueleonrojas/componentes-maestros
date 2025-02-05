@@ -17,17 +17,21 @@ import { selectFormGraphEditingMode, selectValueGraphToFormGraph, selectCurrentI
   styleUrls: ['./form-graph.component.scss']
 })
 export class FormGraphComponent {
-
+   id: FormControl = new FormControl('');
    label: FormControl = new FormControl('', [Validators.required, Validators.maxLength(20)]);
    value: FormControl = new FormControl(0, [Validators.required, Validators.min(0), Validators.max(1000000000000)]);
    color: FormControl = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]);
+   itsFiltered: FormControl = new FormControl(false);
+
 
    label$: Observable<string> = of('hola');
 
    formValueGraph: FormGroup = new FormGroup({
+      id: new FormControl(''),
       label: new FormControl(''),
       value: new FormControl(''),
       color: new FormControl(''),
+      itsFiltered: new FormControl(false)
    });
 
    isModeEditing$: Observable<boolean> = new Observable();
@@ -55,9 +59,11 @@ export class FormGraphComponent {
 
 
       this.formValueGraph = new FormGroup({
+         id:    this.id,
          label: this.label,
          value: this.value,
          color: this.color,
+         itsFiltered: this.itsFiltered
       });
 
       this.currentValueGraph$.subscribe((value: ValueGraph) => {
@@ -80,8 +86,9 @@ export class FormGraphComponent {
          position: this.asyncPipe.transform(this.currentIndexValueGraph$)!,
          valueGraph: {...this.formValueGraph.value}
       }));
-
+      
       this.store.dispatch(setModeUpdateFormGraph({isUpdating: false}));
+
       
    }
 

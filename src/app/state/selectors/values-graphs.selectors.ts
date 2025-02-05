@@ -8,5 +8,10 @@ export const selectValueGraphByIndex = (index: number) => createSelector(
    (state: ReadonlyArray<ValueGraph>) => state[index]
 );
 
+export const selectFilteredValuesGraph =  createSelector(
+   selectValuesGraph,
+   (state: ReadonlyArray<ValueGraph>) => state.filter((value, index) => !value.itsFiltered)
+)
+
 
 
