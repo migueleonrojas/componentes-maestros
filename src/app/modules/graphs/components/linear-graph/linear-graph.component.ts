@@ -44,11 +44,11 @@ export class LinearGraphComponent implements OnInit, OnDestroy {
       
       this.store.dispatch(clearLinearGraph());
       
-      /* this.store.dispatch(startBuildLinearGraphs({
+      this.store.dispatch(startBuildLinearGraphs({
          height: 500,
          width: 0,
          valuesGraph: this.asyncPipe.transform(this.store.select(selectFilteredValuesGraph))!
-      }));    */   
+      }));      
   
    }
 

@@ -9,8 +9,22 @@ export const initialState: ReadonlyArray<ValueGraph> = [
       id:'0',
       itsFiltered:false,
       label:'holis',
-      value: 2000
-   }
+      value: 1000
+   },
+   {
+      color: '#ee92f2',
+      id:'1',
+      itsFiltered:false,
+      label:'holisa',
+      value: 700
+   },
+   {
+      color: '#11d2e2',
+      id:'2',
+      itsFiltered:false,
+      label:'holisa',
+      value: 1750
+   },
 ];
 
 export const valuesGraphsReducer = createReducer(

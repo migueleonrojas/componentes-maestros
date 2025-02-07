@@ -119,7 +119,8 @@ export class GraphService {
          pathLength: 2,
          stroke: "black",
          y1: this._paddingTop + heightWithPadding,
-         y2: this._paddingTop + heightWithPadding
+         y2: this._paddingTop + heightWithPadding,
+         strokeWidth: 2
       };
 
       return of({
@@ -158,19 +159,24 @@ export class GraphService {
       
       const unitFromValueToPx = heightWithPadding / maxValue;
 
-      let xRectProperty = (maxLengthByMaxWidthValue.length * this._widthLetter) + this._widthLetter;
+      let xProperty = paddingLeftLine;
+      let xLineProperty = paddingLeftLine
+      let yLinePropery = 0;
       let xTextLabelProperty = 0;
       let xTextValueProperty = 0;
       let labelWidth = 0;
+      let labelWidthToLine = 0;
       let valueWidth = 0
       
       const listForms: {
          lines: Line, textsLabel: Text, textValue: Text 
       }[] = 
-      valuesGraph.map((valueGraph) => {
+      valuesGraph.map((valueGraph, index) => {
 
          let heightValue = Number((unitFromValueToPx * valueGraph.value).toFixed(2));
+         let prevHeightValue = Number((unitFromValueToPx * (valuesGraph[index - 1]?.value ?? 0)).toFixed(2));
          labelWidth = `${valueGraph.label}`.length * this._widthLetter;
+         labelWidthToLine = `${valueGraph.label}`.length * this._widthLetter;
          valueWidth = `${valueGraph.value}`.length * this._widthLetter; 
 
          xTextLabelProperty = (this._widthRect > labelWidth) 
@@ -181,58 +187,61 @@ export class GraphService {
             ? (this._widthRect - valueWidth) / 2
             : -(valueWidth- this._widthRect) / 2
          
+            
+         xProperty += (this._widthRect + labelWidth);  
+         xLineProperty += (this._widthRect + labelWidthToLine);
 
-         xRectProperty += this._widthRect + (labelWidth);     
+         if(index === 0) labelWidthToLine = 0;
 
          return {
             lines: {
-               x1: paddingLeftLine,
-               x2: xRectProperty - (xTextLabelProperty),
-               y1: (height - this._paddingBottom),
-               y2: (height - this._paddingBottom) - heightValue,
+               x1: xLineProperty - (this._widthRect * 0.5) - (this._widthRect + labelWidthToLine),
+               x2: xLineProperty - (this._widthRect * 0.5) ,
+               y1: (height - this._paddingBottom) - prevHeightValue,
+               y2: (height - this._paddingBottom) - (heightValue),
                pathLength: 2,
-               stroke: "black",
+               stroke: valueGraph.color,
+               strokeWidth: 1
             },
             textsLabel: {
-               x: xRectProperty - this._widthRect + xTextLabelProperty,
+               x: xProperty - this._widthRect + xTextLabelProperty,
                color: valueGraph.color,
                content: valueGraph.label,
                y: (height - this._paddingBottom) + this._heightText,
-               textSpan: [
-
-               ],
+               textSpan: [],
                strokeWidth: "0.25",
                itsFiltered: valueGraph.itsFiltered,
                textLength: labelWidth
             },
             textValue: {
-               x: xRectProperty - this._widthRect + xTextValueProperty,
+               x: xProperty - this._widthRect + xTextValueProperty,
                color: valueGraph.color,
                content: `${valueGraph.value}`,
                y: height - (heightValue + this._paddingTop) - 5,
                textSpan: [],
-               strokeWidth: "0.8",
+               strokeWidth: "0.5",
                itsFiltered: valueGraph.itsFiltered,
                textLength: valueWidth
             }
          }
       });
 
-      xRectProperty += labelWidth;
+      xProperty += labelWidth;
 
       const mainLine: Line = {
          x1: paddingLeftLine,
-         x2: xRectProperty,
+         x2: xProperty,
          pathLength: 2,
          stroke: "black",
          y1: this._paddingTop + heightWithPadding,
-         y2: this._paddingTop + heightWithPadding
+         y2: this._paddingTop + heightWithPadding,
+         strokeWidth: 2
       };
 
       return of({
          texts: [...listForms.map(form => form.textsLabel), ...listForms.map(form => form.textValue)],
          lines: [mainLine, ...listForms.map(form => form.lines)],
-         width: xRectProperty,
+         width: xProperty,
          height,
          valuesGraph
       });
@@ -276,6 +285,7 @@ export class GraphService {
             y2: height - (posYProgresive),
             pathLength: 2,
             stroke: "black",
+            strokeWidth: 2
          }
       });
 
@@ -304,7 +314,8 @@ export class GraphService {
          pathLength: 2,
          stroke: "black",
          y1: this._paddingTop,
-         y2: this._paddingTop + heightWithPadding
+         y2: this._paddingTop + heightWithPadding,
+         strokeWidth: 2
       };
       
       return of({

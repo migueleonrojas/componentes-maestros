@@ -5,4 +5,5 @@ export interface Line {
    y2: number;
    stroke: string;
    pathLength: number;
+   strokeWidth: number;
 }
