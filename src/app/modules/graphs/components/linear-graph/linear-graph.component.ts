@@ -53,7 +53,7 @@ export class LinearGraphComponent implements OnInit, OnDestroy {
    }
 
    ngOnDestroy(): void {
-      this.store.dispatch(clearLinearGraph());
+      this.store.dispatch(clearLinearGraph()); 
    }
 
 }

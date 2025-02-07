@@ -50,7 +50,7 @@ export class BarGraphComponent implements OnDestroy {
    }
 
    ngOnDestroy(): void {
-      this.store.dispatch(clearBarGraph());
+      this.store.dispatch(clearBarGraph()); 
    }
    
 }

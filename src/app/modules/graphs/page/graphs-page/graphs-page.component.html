@@ -1,6 +1,6 @@
 <section class="graphs-content">
    <button mat-raised-button routerLink="/graficas/formulario">Agregar Valores para las gráficas</button>
-   <mat-tab-group class="mat-tab-group">
+   <mat-tab-group class="mat-tab-group" (selectedTabChange)="tabChanged($event)">
       <mat-tab label="Gráfica de Barras">
          <app-bar-graph></app-bar-graph>
       </mat-tab>
