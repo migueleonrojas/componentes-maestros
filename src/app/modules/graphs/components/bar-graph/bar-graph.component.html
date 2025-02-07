@@ -3,7 +3,7 @@
    <line 
       *ngFor="let lineGraph of linesGraph$ | async"
       [attr.x1]="lineGraph.x1" [attr.y1]="lineGraph.y1" [attr.x2]="lineGraph.x2" [attr.y2]="lineGraph.y2"
-      [attr.stroke]="lineGraph.stroke"
+      [attr.stroke]="lineGraph.stroke" [attr.stroke-width]="lineGraph.strokeWidth"
    >
    </line>
 

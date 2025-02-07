@@ -185,7 +185,7 @@ export class GraphService {
 
          xTextValueProperty = (labelWidth < this._widthRect)
             ? (this._widthRect - valueWidth) / 2
-            : -(valueWidth- this._widthRect) / 2
+            : -(valueWidth - this._widthRect) / 2
          
             
          xProperty += (this._widthRect + labelWidth);  
@@ -201,7 +201,7 @@ export class GraphService {
                y2: (height - this._paddingBottom) - (heightValue),
                pathLength: 2,
                stroke: valueGraph.color,
-               strokeWidth: 1
+               strokeWidth: 0.50
             },
             textsLabel: {
                x: xProperty - this._widthRect + xTextLabelProperty,
@@ -285,7 +285,7 @@ export class GraphService {
             y2: height - (posYProgresive),
             pathLength: 2,
             stroke: "black",
-            strokeWidth: 2
+            strokeWidth: 0.25
          }
       });
 
