@@ -159,19 +159,13 @@ export class GraphService {
       
       const unitFromValueToPx = heightWithPadding / maxValue;
 
-      
-
       let xProperty = paddingLeftLine;
       let xLineProperty = paddingLeftLine
-      let yLinePropery = 0;
       let xTextLabelProperty = 0;
       let xTextValueProperty = 0;
       let labelWidth = 0;
       let labelWidthToLine = 0;
       let valueWidth = 0
-
-      console.clear();
-
       
       const listForms: {
          lines: Line, textsLabel: Text, textValue: Text 
