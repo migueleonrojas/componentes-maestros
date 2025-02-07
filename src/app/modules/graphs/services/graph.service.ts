@@ -159,6 +159,8 @@ export class GraphService {
       
       const unitFromValueToPx = heightWithPadding / maxValue;
 
+      
+
       let xProperty = paddingLeftLine;
       let xLineProperty = paddingLeftLine
       let yLinePropery = 0;
@@ -167,11 +169,13 @@ export class GraphService {
       let labelWidth = 0;
       let labelWidthToLine = 0;
       let valueWidth = 0
+
+      console.clear();
+
       
       const listForms: {
          lines: Line, textsLabel: Text, textValue: Text 
-      }[] = 
-      valuesGraph.map((valueGraph, index) => {
+      }[] = valuesGraph.map((valueGraph, index) => {
 
          let heightValue = Number((unitFromValueToPx * valueGraph.value).toFixed(2));
          let prevHeightValue = Number((unitFromValueToPx * (valuesGraph[index - 1]?.value ?? 0)).toFixed(2));
@@ -191,12 +195,12 @@ export class GraphService {
          xProperty += (this._widthRect + labelWidth);  
          xLineProperty += (this._widthRect + labelWidthToLine);
 
-         if(index === 0) labelWidthToLine = 0;
+         if(index === 0) labelWidthToLine -= paddingLeftLine;
 
          return {
             lines: {
                x1: xLineProperty - (this._widthRect * 0.5) - (this._widthRect + labelWidthToLine),
-               x2: xLineProperty - (this._widthRect * 0.5) ,
+               x2: xLineProperty - (this._widthRect * 0.5),
                y1: (height - this._paddingBottom) - prevHeightValue,
                y2: (height - this._paddingBottom) - (heightValue),
                pathLength: 2,
