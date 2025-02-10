@@ -189,11 +189,11 @@ export class GraphService {
          xProperty += (this._widthRect + labelWidth);  
          xLineProperty += (this._widthRect + labelWidthToLine);
 
-         if(index === 0) labelWidthToLine -= paddingLeftLine;
-
          return {
             lines: {
-               x1: xLineProperty - (this._widthRect * 0.5) - (this._widthRect + labelWidthToLine),
+               x1: (index === 0)
+                  ? paddingLeftLine 
+                  : xLineProperty - (this._widthRect * 0.5) - (this._widthRect + labelWidthToLine),
                x2: xLineProperty - (this._widthRect * 0.5),
                y1: (height - this._paddingBottom) - prevHeightValue,
                y2: (height - this._paddingBottom) - (heightValue),

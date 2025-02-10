@@ -19,11 +19,32 @@ export const initialState: ReadonlyArray<ValueGraph> = [
       value: 700
    },
    {
-      color: '#11d2e2',
+      color: '#86d2e0',
       id:'2',
       itsFiltered:false,
       label:'holisa',
-      value: 1750
+      value: 789
+   },
+   {
+      color: '#99d2ff',
+      id:'3',
+      itsFiltered:false,
+      label:'holisa',
+      value: 577
+   },
+   {
+      color: '#eed2ff',
+      id:'4',
+      itsFiltered:false,
+      label:'holisa',
+      value: 875
+   },
+   {
+      color: '#00d2e2',
+      id:'5',
+      itsFiltered:false,
+      label:'holisa',
+      value: 698
    },
 ];
 

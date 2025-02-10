@@ -35,7 +35,8 @@ export class LinearGraphEffects {
                   ({
                      type: '[Linear Graph] Set Cross Axis',
                      lines: crossAxisService.lines,
-                     texts: crossAxisService.texts
+                     texts: crossAxisService.texts,
+                     valuesGraph: mainAxisLinearGraphService.valuesGraph
                   }),
                   ({
                      type: '[Linear Graph] Generate Legend To Linear Graph',

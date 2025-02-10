@@ -40,9 +40,10 @@ export class LinearGraphComponent implements OnInit, OnDestroy {
 
    filterLegend(id: string) {
 
+      this.store.dispatch(clearLinearGraph());
+      
       this.store.dispatch(setFilteredValueGraph({id}));
       
-      this.store.dispatch(clearLinearGraph());
       
       this.store.dispatch(startBuildLinearGraphs({
          height: 500,
