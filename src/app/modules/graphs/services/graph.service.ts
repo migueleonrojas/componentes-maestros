@@ -1,10 +1,11 @@
 import { ElementRef, Injectable } from '@angular/core';
+import { Circle } from '@core/models/circle.interface';
 import { Line } from '@core/models/line.interface';
 import { Rect } from '@core/models/rect.interface';
 import { Text } from '@core/models/text.interface';
 import { ValueGraph } from '@core/models/value.graph.interface';
 import { Observable, of } from 'rxjs';
-import { generateScaleByMaxValue, getLengthByMaxValueWidth, getMaxValueByListModel } from 'src/app/utils/list-numbers/numbers';
+import { generateScaleByMaxValue, getLengthByMaxValueWidth, getMaxValueByListModel, getSumAcumList } from 'src/app/utils/list-numbers/numbers';
 
 @Injectable({
   providedIn: 'root'
@@ -199,7 +200,7 @@ export class GraphService {
                y2: (height - this._paddingBottom) - (heightValue),
                pathLength: 2,
                stroke: valueGraph.color,
-               strokeWidth: 0.50
+               strokeWidth: 1
             },
             textsLabel: {
                x: xProperty - this._widthRect + xTextLabelProperty,
@@ -245,6 +246,82 @@ export class GraphService {
       });
    }
 
+   generatePiesToCircleGraphs(
+      valuesGraph: ReadonlyArray<ValueGraph>,
+      height: number
+   ): Observable<{
+      texts: Text[],
+      circles: Circle[]
+   }> {
+
+
+      const valueAcumList = getSumAcumList(valuesGraph.map((valueGraph) => valueGraph.value));
+
+      let startAngleValueSpaceColor: number = 0;
+
+      const listForms: {
+         texts: Text,
+         circles: Circle
+      }[] = valuesGraph.map((valueGraph, index) => {
+
+         let valueWidth = `${valueGraph.value}`.length * this._widthLetter;
+
+         const PI = Math.PI;
+
+         let diameter = PI * (height * 0.4);
+
+         let radio = height * 0.2;
+
+         let porcentageValueSpaceColor = (valueGraph.value * 100) / valueAcumList;
+         
+         let emptySpaceColor = (diameter) - ( (diameter / 100) * (100 - porcentageValueSpaceColor) );
+         let valueSpaceColor = (diameter) - ( (diameter / 100) * porcentageValueSpaceColor);
+
+         if(index === 0) {
+            startAngleValueSpaceColor = -90;
+         }
+         else{
+            let prevPorcentageValueSpaceColor = (valuesGraph[index - 1].value * 100) / valueAcumList;
+            let prevValueSpaceColor = (diameter) - ( (diameter / 100) * prevPorcentageValueSpaceColor);
+            startAngleValueSpaceColor += (360 - ( prevValueSpaceColor / radio ) * ( 180 / PI ));
+         }
+
+         /* console.log(porcentageValueSpaceColor.toFixed(2)); */
+
+         
+         
+
+         return {
+            circles: {
+               color: valueGraph.color,
+               startAngleValueSpaceColor: startAngleValueSpaceColor,
+               valueSpaceColor: valueSpaceColor,
+               emptyValueSpaceColor: emptySpaceColor,
+            },
+            texts: {
+               color: "",
+               content: `${valueGraph.value}`,
+               itsFiltered: valueGraph.itsFiltered,
+               pathLength: 2,
+               stroke: "black",
+               strokeWidth: "0.8",
+               textLength: valueWidth,
+               x: 0,
+               y: 0,
+               textSpan: []
+            },
+            
+            
+
+         }
+
+      })
+
+      return of({
+         texts: [...listForms.map((listForm) => listForm.texts)],
+         circles: [...listForms.map((listForm) => listForm.circles)]
+      })
+   }
 
    generateCrossAxis(
       valuesGraph: ReadonlyArray<ValueGraph>,

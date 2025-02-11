@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { Store } from '@ngrx/store';
 import { clearBarGraph, startBuildBarGraphs } from 'src/app/state/actions/bar-graph.actions';
+import { clearCircleGraph, startBuildCircleGraphs } from 'src/app/state/actions/circle-graph.actions';
 import { clearLinearGraph, startBuildLinearGraphs } from 'src/app/state/actions/linear-graph.action';
 import { selectFilteredValuesGraph, selectValuesGraph } from 'src/app/state/selectors/values-graphs.selectors';
 
@@ -40,6 +41,15 @@ export class GraphsPageComponent implements OnInit {
             valuesGraph: this.asyncPipe.transform(this.store.select(selectFilteredValuesGraph))!
          }));
       }
+
+      else if(tabChangeEvent.index === 2) {
+         this.store.dispatch(clearCircleGraph());
+
+         this.store.dispatch(startBuildCircleGraphs({
+            height: 500,
+            valuesGraph: this.asyncPipe.transform(this.store.select(selectFilteredValuesGraph))!
+         }))
+      }
    }
    
 
@@ -58,6 +68,11 @@ export class GraphsPageComponent implements OnInit {
          width: 0,
          valuesGraph: this.asyncPipe.transform(this.store.select(selectFilteredValuesGraph))!
       }));
+
+      this.store.dispatch(startBuildCircleGraphs({
+         height: 500,
+         valuesGraph: this.asyncPipe.transform(this.store.select(selectFilteredValuesGraph))!
+      }))
    }
 
 }

@@ -10,6 +10,8 @@ import { BarGraphState } from "@core/models/bar.graph.state";
 import { barGraphReducer } from "./reducers/bar-graph.reducers";
 import { LinearGraphState } from "@core/models/linear.graph.state";
 import { linearGraphReducer } from "./reducers/linear-graph.reducers";
+import { CircleGraphState } from "@core/models/circle.graph.state";
+import { circularGraphReducer } from "./reducers/circle-graph.reducers";
 
 
 export interface AppState {
@@ -18,6 +20,7 @@ export interface AppState {
    formGraphState: FormGraphState;
    barGraphState: BarGraphState;
    linearGraphState: LinearGraphState;
+   circleGraphState: CircleGraphState;
 }
 
 export const ROOT_REDUCERS: ActionReducerMap<AppState> = {
@@ -25,5 +28,6 @@ export const ROOT_REDUCERS: ActionReducerMap<AppState> = {
    valuesGraph: valuesGraphsReducer,
    formGraphState: formGraphReducer,
    barGraphState: barGraphReducer,
-   linearGraphState: linearGraphReducer
+   linearGraphState: linearGraphReducer,
+   circleGraphState: circularGraphReducer,
 };

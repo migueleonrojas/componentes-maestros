@@ -34,3 +34,8 @@ export const generateScaleByMaxValue = (maxValue: number, countScales: number): 
    return scales;
 
 }
+
+export const getSumAcumList = (list:ReadonlyArray<number>): number => {
+
+   return list.reduce((acum, currentValue) => acum + currentValue, 0);
+}

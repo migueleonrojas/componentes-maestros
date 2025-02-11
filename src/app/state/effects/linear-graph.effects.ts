@@ -10,7 +10,7 @@ import { selectValuesGraph } from "../selectors/values-graphs.selectors";
 export class LinearGraphEffects {
 
 
-   $startBuildBarGraph = createEffect(() => this.actions$.pipe(
+   $startBuildLinearGraph = createEffect(() => this.actions$.pipe(
       ofType('[Linear Graph] Start Build Linear Graphs'),
       mergeMap(( startAction: any ) => this.graphService.generateMainAxisLinearGraphs(
             startAction.valuesGraph,

@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { MediaMatcherEffects } from './state/effects/media-matcher.effects';
 import { BarGraphEffects } from './state/effects/bar-graph.effects';
 import { LinearGraphEffects } from './state/effects/linear-graph.effects';
+import { CircleGraphEffects } from './state/effects/circle-graph.effects';
 
 @NgModule({
    declarations: [
@@ -25,7 +26,8 @@ import { LinearGraphEffects } from './state/effects/linear-graph.effects';
       EffectsModule.forRoot([
          MediaMatcherEffects,
          BarGraphEffects,
-         LinearGraphEffects
+         LinearGraphEffects,
+         CircleGraphEffects
       ]),
    ],
    providers: [],
