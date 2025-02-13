@@ -248,79 +248,55 @@ export class GraphService {
 
    generatePiesToCircleGraphs(
       valuesGraph: ReadonlyArray<ValueGraph>,
-      height: number
-   ): Observable<{
-      texts: Text[],
-      circles: Circle[]
-   }> {
-
+      height: number,
+      width: number
+   ): Observable<Circle[]> {
 
       const valueAcumList = getSumAcumList(valuesGraph.map((valueGraph) => valueGraph.value));
 
       let startAngleValueSpaceColor: number = 0;
 
-      const listForms: {
-         texts: Text,
-         circles: Circle
-      }[] = valuesGraph.map((valueGraph, index) => {
-
-         let valueWidth = `${valueGraph.value}`.length * this._widthLetter;
+      const listForms: Circle[] = valuesGraph.map((valueGraph, index) => {
 
          const PI = Math.PI;
-
          let diameter = PI * (height * 0.4);
-
          let radio = height * 0.2;
-
          let porcentageValueSpaceColor = (valueGraph.value * 100) / valueAcumList;
-         
          let emptySpaceColor = (diameter) - ( (diameter / 100) * (100 - porcentageValueSpaceColor) );
          let valueSpaceColor = (diameter) - ( (diameter / 100) * porcentageValueSpaceColor);
+         let valueWidth = `${porcentageValueSpaceColor.toFixed(2)}`.length * this._widthLetter;
 
          if(index === 0) {
             startAngleValueSpaceColor = -90;
          }
+
          else{
             let prevPorcentageValueSpaceColor = (valuesGraph[index - 1].value * 100) / valueAcumList;
             let prevValueSpaceColor = (diameter) - ( (diameter / 100) * prevPorcentageValueSpaceColor);
             startAngleValueSpaceColor += (360 - ( prevValueSpaceColor / radio ) * ( 180 / PI ));
          }
 
-         /* console.log(porcentageValueSpaceColor.toFixed(2)); */
+         if(valuesGraph.length !== 1) {
+            /* valueSpaceColor += 2;
+            emptySpaceColor -= 2; */
+         }   
 
-         
+         let x = (width * 0.5) - (valueWidth * 0.5);
+         let y = (height * 0.5) + (this._heightText * 0.25);
+
          
 
          return {
-            circles: {
-               color: valueGraph.color,
-               startAngleValueSpaceColor: startAngleValueSpaceColor,
-               valueSpaceColor: valueSpaceColor,
-               emptyValueSpaceColor: emptySpaceColor,
-            },
-            texts: {
-               color: "",
-               content: `${valueGraph.value}`,
-               itsFiltered: valueGraph.itsFiltered,
-               pathLength: 2,
-               stroke: "black",
-               strokeWidth: "0.8",
-               textLength: valueWidth,
-               x: 0,
-               y: 0,
-               textSpan: []
-            },
-            
-            
-
+            color: valueGraph.color,
+            startAngleValueSpaceColor: startAngleValueSpaceColor,
+            valueSpaceColor: valueSpaceColor,
+            emptyValueSpaceColor: emptySpaceColor,
+            value: `${porcentageValueSpaceColor.toFixed(2)}`
          }
 
       })
 
-      return of({
-         texts: [...listForms.map((listForm) => listForm.texts)],
-         circles: [...listForms.map((listForm) => listForm.circles)]
-      })
+      return of([...listForms.map((listForm) => listForm)]);
    }
 
    generateCrossAxis(

@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { clearCircleGraph, startBuildCircleGraphs } from 'src/app/state/actions/circle-graph.actions';
 import { setFilteredValueGraph } from 'src/app/state/actions/values-graphs.actions';
-import { selectCirclesOfCircleGraph, selectHeightCircleGraph, selectRectsOfCircleGraph, selectTextsCirclerGraph, selectWidthCircleGraph } from 'src/app/state/selectors/circle-graph.selectors';
+import { selectCirclesOfCircleGraph, selectHeightCircleGraph, selectRectsOfCircleGraph, selectTextsCircleGraph, selectWidthCircleGraph } from 'src/app/state/selectors/circle-graph.selectors';
 import { selectFilteredValuesGraph } from 'src/app/state/selectors/values-graphs.selectors';
 
 @Component({
@@ -25,11 +25,12 @@ export class CircleGraphComponent implements OnDestroy {
    textsGraph$: Observable<ReadonlyArray<Text>> = new Observable();
    heightGraph$: Observable<number> = new Observable();
    widthGraph$: Observable<number> = new Observable();
+   porcentNumber: number = 0.00;
 
    constructor(private store: Store, private asyncPipe: AsyncPipe) {
 
       this.rectsGraph$ = this.store.select(selectRectsOfCircleGraph);
-      this.textsGraph$ = this.store.select(selectTextsCirclerGraph);
+      this.textsGraph$ = this.store.select(selectTextsCircleGraph);
       this.heightGraph$ = this.store.select(selectHeightCircleGraph);
       this.widthGraph$ = this.store.select(selectWidthCircleGraph);
       this.circlesGraph$ = this.store.select(selectCirclesOfCircleGraph);
@@ -47,6 +48,16 @@ export class CircleGraphComponent implements OnDestroy {
          valuesGraph: this.asyncPipe.transform(this.store.select(selectFilteredValuesGraph))!
       }));      
         
+   }
+
+   setValuePorcentage(porcentage: string, pie: MouseEvent, rotate: number) {
+      this.porcentNumber = Number(porcentage);
+      (pie.target as Element).classList.add("pie-selected");
+   }
+
+   removeSelectedClass(pie: MouseEvent) {
+      this.porcentNumber = 0;
+      (pie.target as Element).classList.remove("pie-selected");
    }
 
 

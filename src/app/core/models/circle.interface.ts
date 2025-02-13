@@ -3,4 +3,5 @@ export interface Circle {
    emptyValueSpaceColor: number; 
    color: string;
    startAngleValueSpaceColor: number;
+   value: string
 }

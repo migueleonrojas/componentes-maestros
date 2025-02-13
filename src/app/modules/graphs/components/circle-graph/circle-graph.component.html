@@ -1,37 +1,34 @@
 <svg [attr.height]="heightGraph$ | async" [attr.width]="widthGraph$ | async">
 
+   
+
    <g *ngIf="heightGraph$ | async; let height">
 
       <g *ngIf="widthGraph$ | async; let width">
 
+         <text class="text-porcentage" [attr.x]="0" [attr.y]="height * 0.5" stroke="black" 
+         >
+               {{porcentNumber}} %
+         </text>
+
          <circle [attr.r]="height * 0.4" [attr.cx]="width * 0.5" [attr.cy]="height * 0.5" fill="white" />
-         <circle *ngFor="let circleGraph of circlesGraph$ | async"  [attr.r]="height * 0.2" [attr.cx]="width * 0.5" 
+         
+         <circle #circle *ngFor="let circleGraph of circlesGraph$ | async" 
+            (mouseover)="setValuePorcentage(circleGraph.value, $event, circleGraph.startAngleValueSpaceColor)"
+            (mouseleave)="removeSelectedClass($event)"
+            [attr.r]="height * 0.2" [attr.cx]="width * 0.5" 
             [attr.cy]="height * 0.5" fill="transparent"
             [attr.stroke]="circleGraph.color"
             [attr.stroke-width]="height * 0.4"
             [attr.stroke-dasharray]="circleGraph.emptyValueSpaceColor + ' ' + circleGraph.valueSpaceColor" 
             [attr.transform]="'rotate(' + circleGraph.startAngleValueSpaceColor + ')'"
             transform-origin="center"
-
          />
+
       </g>
       
    </g>
    
-   
-
-   <!-- <circle  [attr.r]="heightGraph$ * 0.5 | async" [attr.cx]="heightGraph$ * 0.5 | async" 
-            [attr.cy]="heightGraph$ * 0.5 | async" fill="white" 
-   /> -->
-   <!-- <circle  [attr.r]="heightGraph$ * 0.25 | async" [attr.cx]="heightGraph$ * 0.5 | async" 
-            [attr.cy]="(heightGraph$ * 0.5) | async" fill="transparent" stroke="tomato"
-            stroke-width="250"
-            stroke-dasharray="
-               calc( (3.14 * 250) - ( ( ( 3.14 * 250 ) / 100 ) * 95 ) ) 
-               calc( (3.14 * 250) - ( ( ( 3.14 * 250 ) / 100 ) * 5  ) )
-            " 
-            transform="rotate(-90)" transform-origin="center"
-   /> -->
 
    <text *ngFor="let textGraph of textsGraph$ | async" 
          [attr.x]="textGraph.x" [attr.y]="textGraph.y"

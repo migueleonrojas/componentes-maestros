@@ -16,10 +16,11 @@ export const selectCirclesOfCircleGraph = createSelector(
    (state: CircleGraphState) => state.circles
 );
 
-export const selectTextsCirclerGraph = createSelector(
+export const selectTextsCircleGraph = createSelector(
    selectCircleGraph,
    (state: CircleGraphState) => state.texts
 );
+
 
 export const selectWidthCircleGraph = createSelector(
    selectCircleGraph,

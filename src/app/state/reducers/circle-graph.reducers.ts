@@ -24,15 +24,15 @@ export const circularGraphReducer = createReducer(
          rects: [],
          circles: [],
          texts: [],
+         textsValue: [],
          width: 0,
          height: 300
       }
    }),
-   on(putPies, (state, { circles, texts } ) => {
+   on(putPies, (state, { circles, textsValue } ) => {
       return { 
          ...state,
          circles: [...state.circles, ...circles],
-         texts: [...state.texts, ...texts],
       }
    }),
    on(setLegend, (state, { rects, texts, width }) => {

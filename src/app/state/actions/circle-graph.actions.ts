@@ -16,7 +16,7 @@ export const putPies = createAction(
    '[Circle Graph] Put Pies On Circle Graphs',
    props<{
       circles: ReadonlyArray<Circle>,
-      texts: ReadonlyArray<Text>,
+      textsValue: ReadonlyArray<Text>,
       height: number,
       width: number
    }>()

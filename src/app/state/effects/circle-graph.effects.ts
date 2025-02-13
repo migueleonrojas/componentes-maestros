@@ -9,42 +9,33 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class CircleGraphEffects {
 
+
    $startBuildCircleGraph = createEffect(() => this.actions$.pipe(
       ofType('[Circle Graph] Start Build Circle Graphs'),
-      mergeMap((startAction: any) => this.graphService.generatePiesToCircleGraphs(
-            startAction.valuesGraph,
-            startAction.height
-         ).pipe(
-            withLatestFrom(this.store.select(selectValuesGraph)),
-            mergeMap(([piesService, valuesGraph]) => this.graphService.generateLegends(valuesGraph).pipe(
-               switchMap((legendService) => of(
-                  ({
-                     type: '[Circle Graph] Generate Legend To Circle Graph',
-                     texts: legendService.texts,
-                     rects: legendService.rects,
-                     width: legendService.width
-                  }),
-                  ({
-                     type: '[Circle Graph] Put Pies On Circle Graphs',
-                     texts: piesService.texts,
-                     circles: piesService.circles
-                  })
-
-                  /* 
-                  export const putPies = createAction(
-                     '[Circle Graph] Put Pies On Circle Graphs',
-                     props<{
-                        circles: ReadonlyArray<Circle>,
-                        texts: ReadonlyArray<Text>,
-                        height: number,
-                        width: number
-                     }>()
-                  );
-                  
-                  */
-               ))
-            ))
-            
+      mergeMap((startAction: any) => this.store.select(selectValuesGraph)
+         .pipe(
+            mergeMap((valuesGraph) => this.graphService.generateLegends(valuesGraph).pipe(
+                  mergeMap((legendService) => this.graphService.generatePiesToCircleGraphs(
+                     startAction.valuesGraph,
+                     startAction.height,
+                     legendService.width
+                     ).pipe(
+                        switchMap((piesService) => of(
+                        ({
+                           type: '[Circle Graph] Generate Legend To Circle Graph',
+                           texts: legendService.texts,
+                           rects: legendService.rects,
+                           width: legendService.width
+                        }),
+                        ({
+                           type: '[Circle Graph] Put Pies On Circle Graphs',
+                           circles: piesService,
+                        })
+                        ))
+                     )
+                  )
+               )
+            )
          )
       )
    ));
