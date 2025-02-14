@@ -26,6 +26,7 @@ export class CircleGraphComponent implements OnDestroy {
    heightGraph$: Observable<number> = new Observable();
    widthGraph$: Observable<number> = new Observable();
    porcentNumber: number = 0.00;
+   valueNumber: number = 0.00;
 
    constructor(private store: Store, private asyncPipe: AsyncPipe) {
 
@@ -50,13 +51,15 @@ export class CircleGraphComponent implements OnDestroy {
         
    }
 
-   setValuePorcentage(porcentage: string, pie: MouseEvent, rotate: number) {
+   setValuePorcentage(porcentage: string, value: string,  pie: MouseEvent) {
       this.porcentNumber = Number(porcentage);
+      this.valueNumber = Number(value);
       (pie.target as Element).classList.add("pie-selected");
    }
 
    removeSelectedClass(pie: MouseEvent) {
       this.porcentNumber = 0;
+      this.valueNumber = 0;
       (pie.target as Element).classList.remove("pie-selected");
    }
 

@@ -286,7 +286,8 @@ export class GraphService {
             startAngleValueSpaceColor: startAngleValueSpaceColor,
             valueSpaceColor: valueSpaceColor,
             emptyValueSpaceColor: emptySpaceColor,
-            value: `${porcentageValueSpaceColor.toFixed(2)}`
+            valuePorcent: `${porcentageValueSpaceColor.toFixed(2)}`,
+            value: `${valueGraph.value}`
          }
 
       })

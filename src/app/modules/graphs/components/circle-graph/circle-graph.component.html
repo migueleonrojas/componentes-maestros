@@ -11,7 +11,7 @@
          <circle [attr.r]="height * 0.4" [attr.cx]="width * 0.5" [attr.cy]="height * 0.5" fill="white" />
          
          <circle class="pie" *ngFor="let circleGraph of circlesGraph$ | async" 
-            (mouseover)="setValuePorcentage(circleGraph.value, $event, circleGraph.startAngleValueSpaceColor)"
+            (mouseover)="setValuePorcentage(circleGraph.valuePorcent, circleGraph.value, $event)"
             (mouseleave)="removeSelectedClass($event)"
             [attr.r]="height * 0.2" [attr.cx]="width * 0.5" 
             [attr.cy]="height * 0.5" fill="transparent"
@@ -26,6 +26,9 @@
             <circle [attr.r]="height * 0.2" [attr.cx]="width * 0.5" [attr.cy]="height * 0.5" fill="white" />
             <text class="text-porcentage" x="50%" y="52.5%" text-anchor="middle">
                {{porcentNumber}}%
+            </text>
+            <text x="50%" y="58.5%" text-anchor="middle">
+               {{valueNumber}}
             </text>
          </g>
       </g>
