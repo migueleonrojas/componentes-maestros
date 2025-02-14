@@ -1,14 +1,20 @@
 <section class="graphs-content">
    <button mat-raised-button routerLink="/graficas/formulario">Agregar Valores para las gráficas</button>
-   <mat-tab-group class="mat-tab-group" (selectedTabChange)="tabChanged($event)">
+   <mat-tab-group mat-align-tabs="center"  (selectedTabChange)="tabChanged($event)">
       <mat-tab label="Gráfica de Barras">
-         <app-bar-graph></app-bar-graph>
+         <section class="graph">
+            <app-bar-graph ></app-bar-graph>
+         </section>
       </mat-tab>
       <mat-tab label="Gráfica de Líneas">
-         <app-linear-graph></app-linear-graph>
+         <section class="graph">
+            <app-linear-graph></app-linear-graph>
+         </section>
       </mat-tab>
       <mat-tab label="Gráfica Circular">
-         <app-circle-graph></app-circle-graph>
+         <section class="graph">
+            <app-circle-graph></app-circle-graph>
+         </section>    
       </mat-tab>
    </mat-tab-group>
 </section>
