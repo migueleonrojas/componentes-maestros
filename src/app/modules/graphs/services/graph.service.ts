@@ -276,11 +276,6 @@ export class GraphService {
             startAngleValueSpaceColor += (360 - ( prevValueSpaceColor / radio ) * ( 180 / PI ));
          }
 
-         if(valuesGraph.length !== 1) {
-            /* valueSpaceColor += 2;
-            emptySpaceColor -= 2; */
-         }   
-
          let x = (width * 0.5) - (valueWidth * 0.5);
          let y = (height * 0.5) + (this._heightText * 0.25);
 
