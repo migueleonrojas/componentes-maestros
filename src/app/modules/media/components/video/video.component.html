@@ -1,1 +1,66 @@
-<p>video works!</p>
+
+<section class="video-container">
+   <video #video  class="video"  
+          [attr.src]="srcVideo$ | async" type="video/mp4" 
+          (loadedmetadata)="setSliderProperties($event)" (timeupdate)="setProgress($event)" 
+          (click)="toggleStart()"
+   >
+      <track class="track" [attr.src]="(subtitle$ | async)!.source" kind="subtitles" 
+             [attr.srclang]="(subtitle$ | async)!.srclang" [attr.label]="(subtitle$ | async)!.label"
+             default          
+      >
+   </video>
+   <aside class="controls">
+      <article class="button-controls">
+         <button mat-mini-fab (click)="toggleStart()">
+            <mat-icon>
+               <span *ngIf="video.paused">play_arrow</span>
+               <span *ngIf="!video.paused">pause</span>
+            </mat-icon>
+         </button>
+      </article>
+      <article class="duration">
+         <span>{{(currentTime$ | async) || 0 | secondsToTimeVideo}}</span>
+         <span> / </span>
+         <span>{{ (video?.duration || 0) | secondsToTimeVideo}}</span>
+      </article>
+      <article class="progress-bar">
+         <mat-slider color="warn" [max]="max" [min]="min" step="1" [value]="currentTime$ | async" (change)="changeProgress($event)">
+         </mat-slider>
+      </article>
+
+      <article class="button-controls">
+         <button mat-mini-fab [matMenuTriggerFor]="optionsMenu">
+            <mat-icon>settings</mat-icon>
+         </button>
+      </article>
+      <mat-menu #optionsMenu="matMenu" yPosition="above">
+         <button class="mat-menu-item" mat-menu-item [matMenuTriggerFor]="subtitlesMenu">
+            <span>Subtitulos</span>
+         </button>
+         <button class="mat-menu-item-with-menu" mat-menu-item [matMenuTriggerFor]="qualityMenu">
+            <span>Calidad</span>
+         </button>
+      </mat-menu>
+
+      <mat-menu #subtitlesMenu yPosition="above">
+         <button *ngFor="let subtitle of (subtitles$ | async)" mat-menu-item (click)="putSubtitles(subtitle)">
+            <span>{{subtitle.language}}</span>
+            <mat-icon class="mat-icon">
+               <span *ngIf="subtitle.language === (subtitle$ | async)!.language">check</span> 
+            </mat-icon>
+         </button>
+      </mat-menu>
+
+      <mat-menu #qualityMenu yPosition="above">
+         <button *ngFor="let routeSrc of (routesSrc$ | async)" mat-menu-item (click)="setQuality(routeSrc.source)">
+            <span>{{routeSrc.resolution}}</span>
+            <mat-icon class="mat-icon">
+               <span *ngIf="routeSrc.source === (srcVideo$ | async)">check</span> 
+            </mat-icon>
+         </button>
+      </mat-menu>
+   </aside>
+</section>
+
+

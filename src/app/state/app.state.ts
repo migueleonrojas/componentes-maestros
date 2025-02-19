@@ -12,6 +12,8 @@ import { LinearGraphState } from "@core/models/linear.graph.state";
 import { linearGraphReducer } from "./reducers/linear-graph.reducers";
 import { CircleGraphState } from "@core/models/circle.graph.state";
 import { circularGraphReducer } from "./reducers/circle-graph.reducers";
+import { VideoMedia } from "@core/models/video.interface";
+import { videoReducer } from "./reducers/video.reducers";
 
 
 export interface AppState {
@@ -21,6 +23,7 @@ export interface AppState {
    barGraphState: BarGraphState;
    linearGraphState: LinearGraphState;
    circleGraphState: CircleGraphState;
+   videoMedia: VideoMedia
 }
 
 export const ROOT_REDUCERS: ActionReducerMap<AppState> = {
@@ -30,4 +33,5 @@ export const ROOT_REDUCERS: ActionReducerMap<AppState> = {
    barGraphState: barGraphReducer,
    linearGraphState: linearGraphReducer,
    circleGraphState: circularGraphReducer,
+   videoMedia: videoReducer
 };

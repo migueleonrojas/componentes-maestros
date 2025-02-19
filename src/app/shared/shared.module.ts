@@ -4,19 +4,23 @@ import { CommonModule } from '@angular/common';
 import { MenuNavigationComponent } from './components/menu-navigation/menu-navigation.component';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { SecondsToTimeVideoPipe } from './pipes/seconds-to-time-video.pipe';
 
 @NgModule({
    declarations: [
-      MenuNavigationComponent
+      MenuNavigationComponent,
+      SecondsToTimeVideoPipe
+      
    ],
    imports: [
       CommonModule,
       RouterModule,
       MatListModule,
-      MatDividerModule
+      MatDividerModule,
    ],
    exports: [
-      MenuNavigationComponent 
+      MenuNavigationComponent,
+      SecondsToTimeVideoPipe
    ]
 })
 export class SharedModule { }
