@@ -6,6 +6,7 @@ import { Subtitle } from '@core/models/subtitle.interface';
 import { MediaService } from '@modules/media/service/media.service';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
+import { startSetMediaMatcher } from 'src/app/state/actions/media-matcher.actions';
 import { saveProgressVideo, setQualityVideo, setSubtitle } from 'src/app/state/actions/video-actions';
 import {  selectProgressVideo, selectQualityVideo, selectSubtitleSelected } from 'src/app/state/selectors/video.selectors';
 
@@ -23,15 +24,17 @@ export class VideoComponent implements AfterViewInit{
    subtitle$: Observable<Subtitle> = new Observable();
    subtitles$: Observable<Subtitle[]> = this.mediaService.getAllRoutesSubtitles();
    routesSrc$: Observable<Quality[]> = this.mediaService.getAllRoutesSrcVideo();
-
    currentTime$: Observable<number> = new Observable();
    min = 0;
    max = 0;
+
+   ischangedQuality: boolean = false;
 
 
 
    constructor(private store: Store, private asyncPipe: AsyncPipe, private mediaService:MediaService) {
       
+      this.store.dispatch(startSetMediaMatcher({breakpoint: '(min-width: 40rem)'}))
       this.srcVideo$ = this.store.select(selectQualityVideo)
       this.subtitle$ = this.store.select(selectSubtitleSelected);
       this.currentTime$ = this.store.select(selectProgressVideo);
@@ -63,13 +66,22 @@ export class VideoComponent implements AfterViewInit{
       (this.video.nativeElement as HTMLVideoElement).currentTime = $event.value!;
    }
 
-   setProgress($event: Event) {
-
-      this.store.dispatch(saveProgressVideo({progress: Math.round(($event.target as HTMLVideoElement).currentTime)}))
+   setProgress($event: Event) {    
+      
+      if(this.ischangedQuality) {
+         this.store.dispatch(saveProgressVideo({progress: this.asyncPipe.transform(this.currentTime$)!}));
+         ($event.target as HTMLVideoElement).textTracks[0].mode = "disabled";
+         this.ischangedQuality = false;
+      }
+      else{
+         ($event.target as HTMLVideoElement).textTracks[0].mode = "showing";
+         this.store.dispatch(saveProgressVideo({progress: ($event.target as HTMLVideoElement).currentTime}));
+      }
+           
    }
 
    setSliderProperties($event: Event) {
-      this.max = Math.round(($event.target as HTMLVideoElement).duration);
+      this.max = ($event.target as HTMLVideoElement).duration;
    }
 
    putSubtitles(subtitle: Subtitle) {
@@ -81,6 +93,8 @@ export class VideoComponent implements AfterViewInit{
    setQuality(quality:string) {
 
       this.store.dispatch(setQualityVideo({quality}));
+
+      this.ischangedQuality = true;
    }
 
 }

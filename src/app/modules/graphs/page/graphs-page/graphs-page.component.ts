@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { clearBarGraph, startBuildBarGraphs } from 'src/app/state/actions/bar-graph.actions';
 import { clearCircleGraph, startBuildCircleGraphs } from 'src/app/state/actions/circle-graph.actions';
 import { clearLinearGraph, startBuildLinearGraphs } from 'src/app/state/actions/linear-graph.action';
+import { startSetMediaMatcher } from 'src/app/state/actions/media-matcher.actions';
 import { selectFilteredValuesGraph, selectValuesGraph } from 'src/app/state/selectors/values-graphs.selectors';
 
 
@@ -17,7 +18,11 @@ export class GraphsPageComponent implements OnInit {
 
    @ViewChild('matTabGroup') matTabGroup: MatTabGroup = {} as MatTabGroup;
 
-   constructor(private store: Store, private asyncPipe: AsyncPipe) { }
+   constructor(private store: Store, private asyncPipe: AsyncPipe) {
+
+      this.store.dispatch(startSetMediaMatcher({breakpoint: '(min-width: 69rem)'}))
+
+    }
 
    tabChanged(tabChangeEvent: MatTabChangeEvent): void {
       if(tabChangeEvent.index === 0) {

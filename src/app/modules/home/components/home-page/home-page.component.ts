@@ -20,8 +20,6 @@ export class HomePageComponent implements OnInit {
 
       this.isMatchesBreakPoint$ = this.store.select(selectBreakPointIsMatched);
 
-      /* console.log(this.isMatchesBreakPoint$); */
-
    }
 
    ngOnInit(): void {

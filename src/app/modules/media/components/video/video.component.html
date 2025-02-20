@@ -1,8 +1,8 @@
 
 <section class="video-container">
-   <video #video  class="video"  
+   <video #video  class="video" 
           [attr.src]="srcVideo$ | async" type="video/mp4" 
-          (loadedmetadata)="setSliderProperties($event)" (timeupdate)="setProgress($event)" 
+          (loadedmetadata)="setSliderProperties($event)" (timeupdate)="setProgress($event)"
           (click)="toggleStart()"
    >
       <track class="track" [attr.src]="(subtitle$ | async)!.source" kind="subtitles" 
@@ -25,7 +25,7 @@
          <span>{{ (video?.duration || 0) | secondsToTimeVideo}}</span>
       </article>
       <article class="progress-bar">
-         <mat-slider color="warn" [max]="max" [min]="min" step="1" [value]="currentTime$ | async" (change)="changeProgress($event)">
+         <mat-slider color="warn" [max]="max" [min]="min" step="1" [value]="currentTime$ | async" (input)="changeProgress($event)">
          </mat-slider>
       </article>
 
