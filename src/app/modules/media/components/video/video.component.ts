@@ -34,7 +34,7 @@ export class VideoComponent implements AfterViewInit{
 
    constructor(private store: Store, private asyncPipe: AsyncPipe, private mediaService:MediaService) {
       
-      this.store.dispatch(startSetMediaMatcher({breakpoint: '(min-width: 40rem)'}))
+      this.store.dispatch(startSetMediaMatcher({breakpoint: '(min-width: 42.5rem)'}))
       this.srcVideo$ = this.store.select(selectQualityVideo)
       this.subtitle$ = this.store.select(selectSubtitleSelected);
       this.currentTime$ = this.store.select(selectProgressVideo);

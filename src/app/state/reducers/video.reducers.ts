@@ -7,10 +7,10 @@ export const initialState: VideoMedia = {
    progress: 0,
    src: 'assets/media/Music-480.mp4',
    subtitlesSelected: {
-      label: 'Spanish',
-      srclang: 'es',
-      source: 'assets/subtitles/subtitles.es.vtt',
-      language: Language.Spanish
+      label: '',
+      srclang: '',
+      source: '',
+      language: Language.None
    }
 };
 
