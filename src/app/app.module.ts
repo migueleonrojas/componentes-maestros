@@ -11,6 +11,7 @@ import { MediaMatcherEffects } from './state/effects/media-matcher.effects';
 import { BarGraphEffects } from './state/effects/bar-graph.effects';
 import { LinearGraphEffects } from './state/effects/linear-graph.effects';
 import { CircleGraphEffects } from './state/effects/circle-graph.effects';
+import { ChatEffects } from './state/effects/chat.effects';
 
 @NgModule({
    declarations: [
@@ -27,7 +28,8 @@ import { CircleGraphEffects } from './state/effects/circle-graph.effects';
          MediaMatcherEffects,
          BarGraphEffects,
          LinearGraphEffects,
-         CircleGraphEffects
+         CircleGraphEffects,
+         ChatEffects
       ]),
    ],
    providers: [],

@@ -1,1 +1,22 @@
-<p>window-chat works!</p>
+<article class="chat-container">
+   <aside #messagesContainer class="messages-container">
+      <div *ngFor="let message of (messages$ | async)" class="message-box" 
+            [ngClass]="message.transmitter === 'usuario' ? 'message-box-user': 'message-box-support'" 
+      >
+         <span class="message-text">
+           {{ message.message }}
+         </span>
+         <span class="message-date">
+            {{message.date | date:'dd/MM/yyyy HH:mm:ss a':'es-ES'}}
+         </span>
+      </div>
+      
+   </aside>
+   <aside class="text-box-container">
+      <textarea class="textarea" (keydown)="sendMessage($event)"></textarea>
+      <button mat-fab class="send-button" color="primary">
+         <mat-icon>send</mat-icon>
+      </button>
+   </aside>
+
+</article>

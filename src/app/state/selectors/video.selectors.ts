@@ -1,7 +1,7 @@
 import { VideoMedia } from "@core/models/video.interface";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
-export const selectVideo = createFeatureSelector<VideoMedia>('videoMedia');
+export const selectVideo = createFeatureSelector<VideoMedia>('videoMediaState');
 
 export const selectQualityVideo = createSelector(
    selectVideo,
