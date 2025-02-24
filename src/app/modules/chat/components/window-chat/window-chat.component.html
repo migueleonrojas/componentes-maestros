@@ -1,7 +1,7 @@
 <article class="chat-container">
    <aside #messagesContainer class="messages-container">
-      <div *ngFor="let message of (messages$ | async)" class="message-box" 
-            [ngClass]="message.transmitter === 'usuario' ? 'message-box-user': 'message-box-support'" 
+      <div #messageBox *ngFor="let message of (messages$ | async)" class="message-box" 
+           [ngClass]="message.transmitter === 'usuario' ? 'message-box-user': 'message-box-support'"
       >
          <span class="message-text">
            {{ message.message }}
@@ -13,8 +13,10 @@
       
    </aside>
    <aside class="text-box-container">
-      <textarea class="textarea" (keydown)="sendMessage($event)"></textarea>
-      <button mat-fab class="send-button" color="primary">
+      <textarea class="textarea" [(ngModel)]="message" (keydown)="sendMessage($event)"></textarea>
+      <button mat-fab class="send-button" color="primary" (click)="addNewMessage(message)"
+              [disabled]="message === ''"
+      >
          <mat-icon>send</mat-icon>
       </button>
    </aside>

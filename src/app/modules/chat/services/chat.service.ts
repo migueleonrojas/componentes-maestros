@@ -23,16 +23,15 @@ export class ChatService {
          for(let j = 0; j < answers.length; j++) {
 
             if(answers[j].replace(',', ' ').includes(message.split(' ')[i])) {
-               console.log(message.split(' ')[i])
                coincidencesInclude ++;
                possibleAnswers.push({
-                  coincidences: coincidencesInclude,
+                  coincidencesScore: coincidencesInclude * message.split(' ')[i].length,
                   textAnswer: answers[j]
                })
             }
             else {
                possibleAnswers.push({
-                  coincidences: 0,
+                  coincidencesScore: 0,
                   textAnswer: answers[j]
                })
             }
@@ -40,10 +39,8 @@ export class ChatService {
          } 
 
       }
-
-      console.log(possibleAnswers);
       
-      const answer = possibleAnswers.reduce((prev, current) => current.coincidences > prev.coincidences ? current: prev);
+      const answer = possibleAnswers.reduce((prev, current) => current.coincidencesScore > prev.coincidencesScore ? current: prev);
 
       return answer.textAnswer;
 

@@ -420,6 +420,8 @@ export class GraphService {
 
       xPosition += (this._widthRect)
 
+      if(xPosition <  500) xPosition = 500;
+
       return of({
          texts: [...listLegends.map((legend => legend.textsLegend))],
          rects: [...listLegends.map((legend => legend.rectsLegend))],

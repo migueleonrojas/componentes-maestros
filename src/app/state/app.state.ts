@@ -16,6 +16,7 @@ import { VideoMedia } from "@core/models/video.interface";
 import { videoReducer } from "./reducers/video.reducers";
 import { Message } from "@core/models/message.interface";
 import { chatReducer } from "./reducers/chat.reducers";
+import { Chat } from "@core/models/chat.interface";
 
 
 export interface AppState {
@@ -26,7 +27,7 @@ export interface AppState {
    linearGraphState: LinearGraphState;
    circleGraphState: CircleGraphState;
    videoMediaState: VideoMedia,
-   chatState: ReadonlyArray<Message>
+   chatState: Chat
 }
 
 export const ROOT_REDUCERS: ActionReducerMap<AppState> = {

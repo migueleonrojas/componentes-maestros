@@ -26,3 +26,8 @@ export const getAllMessages = createAction(
    '[Chat] Get All Message',
    props<{messages: ReadonlyArray<Message>}>()
 );
+
+export const setScrollHeight = createAction(
+   '[Chat] Set Scroll Height',
+   props<{height: number}>()
+);

@@ -1,4 +1,4 @@
 export interface PossibleAnswers {
-   coincidences: number,
+   coincidencesScore: number,
    textAnswer: string
 }
