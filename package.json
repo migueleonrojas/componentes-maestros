@@ -1,6 +1,9 @@
 {
   "name": "componentes-maestros",
   "version": "0.0.0",
+  "engines": {
+   "node": ">=12.22.12"
+  },
   "scripts": {
     "ng": "ng",
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve",
