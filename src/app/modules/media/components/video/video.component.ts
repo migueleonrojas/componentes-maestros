@@ -27,6 +27,7 @@ export class VideoComponent implements AfterViewInit{
    currentTime$: Observable<number> = new Observable();
    min = 0;
    max = 0;
+   isLoading = true;
 
    ischangedQuality: boolean = false;
 
@@ -42,7 +43,7 @@ export class VideoComponent implements AfterViewInit{
    }
 
    ngAfterViewInit(): void {
-   
+     
    }
 
 
@@ -95,6 +96,14 @@ export class VideoComponent implements AfterViewInit{
       this.store.dispatch(setQualityVideo({quality}));
 
       this.ischangedQuality = true;
+
+      this.isLoading = true;
    }
+
+
+   canPlaying() {
+      this.isLoading = false;
+   }
+
 
 }

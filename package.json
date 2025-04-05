@@ -2,7 +2,7 @@
   "name": "componentes-maestros",
   "version": "0.0.0",
   "engines": {
-   "node": ">=12.22.12"
+    "node": ">=12.22.12"
   },
   "scripts": {
     "ng": "ng",
@@ -15,7 +15,7 @@
     "@angular-devkit/build-angular": "^12.0.0",
     "@angular/animations": "~12.2.0",
     "@angular/cdk": "^12.2.13",
-    "@angular/cli": "^12.0.0",
+    "@angular/cli": "^12.2.18",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
     "@angular/core": "~12.2.0",
