@@ -1,19 +1,14 @@
-.loader-container {
-   height: 100vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
+
 
 
 .video-container {
    display: flex;
    flex-direction: column;
    justify-content: center;
-  
    width: 100%;
    max-width: 100vw;
    min-width: 50vw;
+   position: relative;
 }
 
 .video-container > video {
@@ -21,6 +16,18 @@
    height: 70vh;
    aspect-ratio: 16 / 9;
    cursor: pointer;
+}
+
+.loader-container {
+   top: 0;
+   width: 100%;
+   height: calc(100% - 3rem);
+   position: absolute;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #030303;
+   
 }
 
 

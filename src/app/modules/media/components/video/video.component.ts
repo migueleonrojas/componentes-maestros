@@ -93,16 +93,23 @@ export class VideoComponent implements AfterViewInit{
 
    setQuality(quality:string) {
 
+      this.isLoading = true;
+
       this.store.dispatch(setQualityVideo({quality}));
 
       this.ischangedQuality = true;
 
-      this.isLoading = true;
    }
 
 
    canPlaying() {
       this.isLoading = false;
+   }
+
+   loadStart($event: Event) {
+      /* const video = $event.target as HTMLVideoElement;
+
+      console.log(video.buffered.start(0)); */
    }
 
 
